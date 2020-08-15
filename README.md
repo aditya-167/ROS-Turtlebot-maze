@@ -272,19 +272,6 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
 * Lidar is not a 100% perfect sensor. This can be also effected by sun light or reflection.
 * Lidar-Camera Calibration can be one of the reason. If calibration has some error, bounding box can include wrong points.
 
-
-* In case of 14-18 frames, by the eye, the distance of the front vehicle decreased, but the TTC increased.
-* TTC from Lidar is not correct because of some outliers and some unstable points from preceding vehicle's front mirrors, those need to be filtered out.
-* Some examples with wrong TTC estimate of the Lidar sensor:
-
-Frame Number        | IMAGE               
---------------------| -------------------
-14                  |![alt text](https://github.com/studian/SFND_P4_3D_Object_Tracking/blob/master/resultsImages/SHITOMASI_FREAK/0000000014.png) 
-15                  |![alt text](https://github.com/studian/SFND_P4_3D_Object_Tracking/blob/master/resultsImages/SHITOMASI_FREAK/0000000015.png)
-16                  |![alt text](https://github.com/studian/SFND_P4_3D_Object_Tracking/blob/master/resultsImages/SHITOMASI_FREAK/0000000016.png) 
-17                  |![alt text](https://github.com/studian/SFND_P4_3D_Object_Tracking/blob/master/resultsImages/SHITOMASI_FREAK/0000000017.png) 
-18                  |![alt text](https://github.com/studian/SFND_P4_3D_Object_Tracking/blob/master/resultsImages/SHITOMASI_FREAK/0000000018.png) 
-
 * TTC from Lidar is not correct because of Lidar points from preceding vehicle front mirrors. 
 * Need to delete Lidar points from preceding vehicle front mirrors.
  
@@ -297,9 +284,16 @@ Frame Number        | IMAGE
 * I created a loop in code to test all possible combinations of detectors and descriptors and saved the results.
   * detectors: `SHITOMASI`, `FAST`, `BRISK`, `ORB`, `AKAZE`
   * descriptors: `BRISK`, `BRIEF`, `ORB`, `FREAK`  
-  * Saved Results of All Combination: please check `FP_6_Performance_Evaluation_2.csv` file [CSV file](https://github.com/studian/SFND_P4_3D_Object_Tracking/FP_6_Performance_Evaluation_2.csv).
-* Analysis of All Combination: please check `FP_6_Performance_Evaluation_2_analysis.xlsx` file [Excel file](https://github.com/studian/SFND_P4_3D_Object_Tracking/FP_6_Performance_Evaluation_2_analysis.xlsx).
+  * Saved Results of All Combination: please check `Evaluation/evaluation.csv`
+One of the reasons for camera TTC's way off:
+1. Matching has some false positive.
+2. Camera distortion is one of the reason.
+
 * Certain detector/descriptor combinations, especially the `ORB` detectors, produced very unreliable camera TTC estimates.
+**Eg:** 
+
+![image](https://github.com/aditya-167/2D-feature-tracking-CV/blob/master/images/0000000013.png)
+
 * The TOP3 detector / descriptor combinations as the best choice for our purpose of detecting keypoints on vehicles are: 
   * `SHITOMASI` / `FREAK`
   * `AKAZE` / `BRISK`
