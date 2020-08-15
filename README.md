@@ -270,6 +270,13 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
   * Saved Results Images of All Combination: please check `Evaluation/ImagesResult/` folder.
 * Bounding box contains some points which is not involved front car.
 * Lidar is not a 100% perfect sensor. This can be also effected by sun light or reflection.
+
+**For example**:
+
+![Image](https://github.com/aditya-167/2D-feature-tracking-CV/blob/master/images/0000000003.png)
+
+From previous frames (TTC for camera and lidar showd around 12, but here Lidar shows ~16 s which is way too much)
+
 * Lidar-Camera Calibration can be one of the reason. If calibration has some error, bounding box can include wrong points.
 
 * TTC from Lidar is not correct because of Lidar points from preceding vehicle front mirrors. 
@@ -285,11 +292,13 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
   * detectors: `SHITOMASI`, `FAST`, `BRISK`, `ORB`, `AKAZE`
   * descriptors: `BRISK`, `BRIEF`, `ORB`, `FREAK`  
   * Saved Results of All Combination: please check `Evaluation/evaluation.csv`
+  
 One of the reasons for camera TTC's way off:
 1. Matching has some false positive.
 2. Camera distortion is one of the reason.
 
 * Certain detector/descriptor combinations, especially the `ORB` detectors, produced very unreliable camera TTC estimates.
+
 **Eg:** 
 
 ![image](https://github.com/aditya-167/2D-feature-tracking-CV/blob/master/images/0000000013.png)
